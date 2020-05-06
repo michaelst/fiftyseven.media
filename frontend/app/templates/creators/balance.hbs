@@ -1,0 +1,29 @@
+<div class="container my-5">
+  <div class="mb-3">
+    {{#is-admin}}
+      
+    {{else}}
+      Current Balance: {{format-money amount=session.data.authenticated.user.balance}}
+    {{/is-admin}}
+  </div>
+  <table class="table table-hover table-bordered" style="font-size:12px">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>User</th>
+        <th>Note</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each model as |transaction|}}
+        <tr>
+          <td>{{moment-format transaction.date 'MMM D, YYYY' 'YYYY-MM-DD'}}<br></td>
+          <td>{{transaction.user}}</td>
+          <td>{{transaction.note}}</td>
+          <td>{{format-money amount=transaction.amount}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,66 @@
+{{partial "partials/navbar"}}
+<div class="index-slider-header">
+  <div class="slider-component fxPressAway">
+    <ul id="slider-items" class="itemwrap">
+      <li class="slide current">
+        <div class="pic" style="background-image: url('https://storage.googleapis.com/fifty-seven/features/nowhere.jpg');">
+        </div>
+      </li>
+      <li class="slide">
+        <div class="pic" style="background-image: url('https://storage.googleapis.com/fifty-seven/features/breathe.jpg');">
+        </div>
+      </li>
+      <li class="slide">
+        <div class="pic" style="background-image: url('https://storage.googleapis.com/fifty-seven/features/kate.jpg');">
+        </div>
+      </li>
+      <li class="slide">
+        <div class="pic" style="background-image: url('https://storage.googleapis.com/fifty-seven/features/brady.jpg');">
+        </div>
+      </li>
+      <li class="slide">
+        <div class="pic" style="background-image: url('https://storage.googleapis.com/fifty-seven/features/silter.jpg');">
+        </div>
+      </li>
+      <li class="slide">
+        <div class="pic" style="background-image: url('https://storage.googleapis.com/fifty-seven/features/frederik.jpg');">
+        </div>
+      </li>
+    </ul>
+    <nav>
+      <a class="prev" {{action "slide" "prev"}}>
+        <span class="icon-wrap"></span>
+      </a>
+      <a class="next"  {{action "slide" "next"}}>
+        <span class="icon-wrap"></span>
+      </a>
+    </nav>
+  </div>
+</div>
+
+<div class="releases-page agency-portfolio mt-5 pt-1">
+  <div class="container">
+    <h2>Recent Releases</h2>
+    <div class="row">
+      {{#each model.albums as |album|}}
+        {{#if album.publish}}
+          <div class="col-md-3 col-sm-6">
+            <a href="{{album.listenUrl}}" target="_blank" class="project" style={{album.backgroundStyle}}>
+              <span class="mask">
+                <span class="info">
+                  <h3>{{album.title}}</h3>
+                  <p>{{album.artist.name}}</p>
+                </span>
+                <span class="btn-see-project">
+                  Listen
+                </span>
+              </span>
+            </a>
+          </div>
+        {{/if}}
+      {{/each}}
+    </div>
+  </div>
+</div>
+
+{{partial "partials/footer"}}

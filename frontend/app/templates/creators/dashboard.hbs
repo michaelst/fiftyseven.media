@@ -1,0 +1,49 @@
+<div class="container my-5">
+  <table class="table table-hover table-bordered" style="font-size:12px">
+    <thead>
+      <tr>
+        <th>Month</th>
+        <th>Artist</th>
+        <th>Source</th>
+        <th>Country</th>
+        <th>Song/Album</th>
+        <th>Type</th>
+        <th>Quantity</th>
+        <th>Earned</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each model as |royalty|}}
+        <tr>
+          <td class="text-nowrap">
+            {{moment-format royalty.inserted_on 'MMMM' 'YYYY-MM-DD'}}<br>
+            <small>{{moment-format royalty.inserted_on 'YYYY' 'YYYY-MM-DD'}}</small>
+          </td>
+          <td class="text-nowrap">{{royalty.artist.name}}</td>
+          <td class="text-nowrap">
+            <span title={{royalty.incoming_batch_source_name}}>
+              {{truncate royalty.incoming_batch_source_name 25 true}}
+            </span><br>
+            <small>{{royalty.incoming_batch_description}}</small>
+          </td>
+          <td class="text-nowrap">{{royalty.territory_of_sale}}</td>
+          <td class="text-nowrap">
+            {{#if royalty.song}}
+              {{royalty.song.title}}<br>
+              <small>{{royalty.album.title}}</small>
+            {{else}}
+              {{royalty.album.title}}
+            {{/if}}
+          </td>
+          <td class="text-nowrap">{{royalty.commercial_model_type}}</td>
+          <td class="text-nowrap">{{royalty.quantity}}</td>
+          <td class="text-nowrap">
+            {{format-money amount=royalty.earned_amount}} / {{format-money amount=royalty.amount}}
+            <br>
+            <small>{{royalty.percentage}}%</small>
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

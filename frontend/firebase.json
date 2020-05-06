@@ -1,0 +1,41 @@
+{
+  "hosting": {
+    "site": "cloud-57",
+    "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "headers": [
+      {
+        "source": "/**",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache, no-store, must-revalidate"
+          },
+          {
+            "key": "Strict-Transport-Security",
+            "value": "max-age=63072000; includeSubDomains; preload"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(jpg|ico|png|gif|js|js.map|css|css.map|eot|svg|ttf|woff|woff2|otf)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=604800"
+          }
+        ]
+      }
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

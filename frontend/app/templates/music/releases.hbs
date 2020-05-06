@@ -1,0 +1,23 @@
+<div class="releases-page agency-portfolio mt-5 pt-1">
+  <div class="container">
+    <div class="row">
+      {{#each model as |album|}}
+        {{#if album.publish}}
+          <div class="col-md-3 col-sm-6">
+            <a href="{{album.listenUrl}}" target="_blank" class="project" style={{album.backgroundStyle}}>
+              <span class="mask">
+                <span class="info">
+                  <h3>{{album.title}}</h3>
+                  <p>{{album.artist.name}}</p>
+                </span>
+                <span class="btn-see-project">
+                  Listen
+                </span>
+              </span>
+            </a>
+          </div>
+        {{/if}}
+      {{/each}}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+.application.login {
+  background: #0074D9;
+  font-family: "Roboto", sans-serif;
+
+  .fa-check-circle {
+    font-size: 30px;
+    margin: 9px;
+  }
+
+  .form {
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 360px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+
+    input {
+      outline: 0;
+      background: #f2f2f2;
+      width: 100%;
+      border: 0;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+    .login-button {
+      max-height: 53px;
+      min-height: 53px;
+      text-transform: uppercase;
+      outline: 0;
+      background: #0074D9;
+      width: 100%;
+      border: 0;
+      color: #FFFFFF;
+      font-size: 14px;
+      -webkit-transition: all 0.3 ease;
+      transition: all 0.3 ease;
+      cursor: pointer;
+    }
+  }
+  .form button:hover,.form button:active,.form button:focus {
+    background: #0767bb;
+  }
+}

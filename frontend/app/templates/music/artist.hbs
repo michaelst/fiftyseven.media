@@ -1,0 +1,48 @@
+<div class="artist-page">
+    <div class="header" style="{{model.backgroundStyle}}">
+        <img src="{{model.headerImage}}">
+    </div>
+    <div class="social-links">
+        {{#if model.facebookUrl}}
+          <a href="{{model.facebookUrl}}" target="_blank"><img src="https://storage.googleapis.com/fifty-seven/icons/facebook.png" alt="{{model.facebookUrl}} on Facebook" /></a>
+        {{/if}}
+        {{#if model.twitterUrl}}
+          <a href="{{model.twitterUrl}}" target="_blank"><img src="https://storage.googleapis.com/fifty-seven/icons/twitter.png" alt="{{model.twitterUrl}} on Twitter" /></a>
+        {{/if}}
+        {{#if model.youtubeUrl}}
+          <a href="{{model.youtubeUrl}}" target="_blank"><img src="https://storage.googleapis.com/fifty-seven/icons/youtube.png" alt="{{model.youtubeUrl}} on YouTube" /></a>
+        {{/if}}
+        {{#if model.spotifyUrl}}
+          <a href="{{model.spotifyUrl}}" target="_blank"><img src="https://storage.googleapis.com/fifty-seven/icons/spotify.png" alt="{{model.spotifyUrl}} on Spotify" /></a>
+        {{/if}}
+    </div>
+    <section id="project-intro">
+      <div class="container">
+        <p>{{model.bio}}</p>
+      </div>
+    </section>
+    <div class="agency-portfolio">
+      <div class="container">
+        <h2>Releases</h2>
+        <div class="row">
+          {{#each model.albums as |album|}}
+            {{#if album.publish}}
+              <div class="col-md-3 col-sm-6">
+                <a href="{{album.listenUrl}}" target="_blank" class="project" style="background: url({{album.artworkUrl}}) no-repeat center center;">
+                  <span class="mask">
+                    <span class="info">
+                      <h3>{{album.title}}</h3>
+                      <p>{{album.artist.name}}</p>
+                    </span>
+                    <span class="btn-see-project">
+                      Listen
+                    </span>
+                  </span>
+                </a>
+              </div>
+            {{/if}}
+          {{/each}}
+        </div>
+      </div>
+    </div>
+</div>

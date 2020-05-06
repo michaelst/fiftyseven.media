@@ -1,0 +1,23 @@
+$blue:    #0064FF !default;
+$white:   #FFFFFF !default;
+$purple:  #7953F5 !default;
+$red:     #FF194A !default;
+$orange:  #fd7e14 !default;
+$yellow:  #ffc107 !default;
+$green:   #00D478 !default;
+
+$colors: (
+  blue: $blue,
+  white: $white,
+  purple: $purple,
+  red: $red,
+  orange: $orange,
+  yellow: $yellow,
+  green: $green,
+) !default;
+
+@each $color, $hex in $colors {
+  .#{$color} {
+    color: $hex;
+  }
+}

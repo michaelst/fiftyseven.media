@@ -1,0 +1,127 @@
+@function short-prefix($prefix) {
+    @if $prefix == 'margin' {
+      @return 'm';
+    }
+    @elseif $prefix == 'padding' {
+      @return 'p';
+    }
+}
+
+@function short-direction($direction) {
+    @if $direction == 'top' {
+      @return 't';
+    }
+    @elseif $direction == 'right' {
+      @return 'r';
+    }
+    @elseif $direction == 'bottom' {
+      @return 'b';
+    }
+    @elseif $direction == 'left' {
+      @return 'l';
+    }
+}
+
+$lineHeights: 8 10 12 14 15 16 18 20 22 24 25 26 28 30;
+@each $height in $lineHeights {
+  .lh-#{$height} {
+    line-height: #{$height}px;
+  }
+}
+
+$heights: 8 10 12 14 15 16 18 20 25 30 36;
+@each $height in $heights {
+  .h-#{$height} {
+    height: #{$height}px;
+  }
+}
+
+$widths: 0 1 2 3 4 5 6 7 8 9 10 12 14 16 18 20 25 30;
+@each $width in $widths {
+  .w-#{$width}rem {
+    width: #{$width}rem;
+  }
+}
+
+$z-indexes: 1 2 3 4 5 10 15 20 25 50 100;
+@each $z-index in $z-indexes {
+  .zi-#{$z-index} {
+    position: relative;
+    z-index: #{$z-index};
+  }
+}
+
+$widths: 0 5 10 15 20 25 30 40 50 70 80 90 100 150 200;
+@each $width in $widths {
+  .w-#{$width}px {
+    width: #{$width}px;
+  }
+}
+
+$sizes: 1 2 3 4 5 6 7 8 9 10 12 15 20 25 30;
+$remSizes: 2 4 5;
+
+@each $prefix in margin padding {
+  .#{short-prefix($prefix)} {
+    @each $direction in top right bottom left {
+      &#{short-direction($direction)} {
+        @each $size in $sizes {
+          &#{$size} {
+            #{$prefix}-#{$direction}: #{$size}px !important;
+          }
+        }
+      }
+
+      &#{short-direction($direction)} {
+        @each $size in $remSizes {
+          &-#{$size}rem {
+            #{$prefix}-#{$direction}: #{$size}rem !important;
+          }
+        }
+      }
+    }
+
+    //
+    @each $size in $sizes {
+      &#{$size} {
+        #{$prefix}: #{$size}px !important;
+      }
+    }
+
+    @each $size in $remSizes {
+      &-#{$size}rem {
+        #{$prefix}: #{$size}rem !important;
+      }
+    }
+
+    &x {
+      @each $size in $sizes {
+        &#{$size} {
+          #{$prefix}-left: #{$size}px !important;
+          #{$prefix}-right: #{$size}px !important;
+        }
+      }
+      @each $size in $remSizes {
+        &-#{$size}rem {
+          #{$prefix}-left: #{$size}rem !important;
+          #{$prefix}-right: #{$size}rem !important;
+        }
+      }
+    }
+
+    &y {
+      @each $size in $sizes {
+        &#{$size} {
+          #{$prefix}-top: #{$size}px !important;
+          #{$prefix}-bottom: #{$size}px !important;
+        }
+      }
+      @each $size in $remSizes {
+        &-#{$size}rem {
+          #{$prefix}-top: #{$size}rem !important;
+          #{$prefix}-bottom: #{$size}rem !important;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+.releases-page {
+  background: #FFFFFF;
+}
+
+.agency-portfolio {
+
+  .project:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
+
+  .project {
+    background-size: cover !important;
+    box-shadow: 0px 0px 10px 0px #CCC;
+
+    .mask {
+      .btn-see-project {
+        margin-top: 10px;
+      }
+    }
+  }
+
+}

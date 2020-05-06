@@ -1,0 +1,17 @@
+{{#if (eq state 'ready')}}
+  <button class="p-3 {{class}}" {{action "click"}}>
+    {{yield}}
+  </button>
+{{else if  (eq state 'loading')}}
+  <button class="p-3 {{class}}" disabled>
+    <div class="sk-three-bounce mx-auto">
+      <div class="sk-child sk-bounce1"></div>
+      <div class="sk-child sk-bounce2"></div>
+      <div class="sk-child sk-bounce3"></div>
+    </div>
+  </button>
+{{else}}
+  <button class="{{class}}" disabled>
+    <i class="far fa-check-circle"></i>
+  </button>
+{{/if}}

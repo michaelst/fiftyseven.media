@@ -1,0 +1,35 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  frontend:
+    name: Frontend
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Cache Node Modules
+        uses: actions/cache@master
+        with:
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+
+      - run: npm install
+      - run: ember build --environment=production
+
+      - uses: w9jds/firebase-action@master
+        with:
+          args: deploy
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          PROJECT_PATH: frontend

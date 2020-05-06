@@ -1,0 +1,16 @@
+<div class="container m-auto">
+  <div class="form p-4 mt-0 mx-auto text-center">
+    <form class="login-form">
+      {{#if error}}
+        <div class="bs-callout bs-callout-danger mb-3 p-3">
+          <h4>{{error}}</h4>
+        </div>
+      {{/if}}
+      {{input value=email class="p-3 mb-3" placeholder="email"}}
+      {{input value=password class="p-3 mb-3" placeholder="password" type="password"}}
+      {{#status-button action=(action "login") state=buttonState class="login-button"}}
+        login
+      {{/status-button}}
+    </form>
+  </div>
+</div>

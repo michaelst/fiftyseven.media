@@ -1,0 +1,14 @@
+<div class="container pt-5">
+  <div class="row">
+    {{#each model as |artist|}}
+      {{#if artist.publish}}
+        <div class="col-sm-3 col-xs-6">
+          {{#link-to 'music.artist' artist.id artist.slug}}
+            <img width="100%" src="{{artist.listImageUrl}}"/>
+          {{/link-to}}
+          <p><{{artist.name}}</p>
+        </div>
+      {{/if}}
+    {{/each}}
+  </div>
+</div>
