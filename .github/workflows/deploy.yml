@@ -25,7 +25,9 @@ jobs:
             ${{ runner.OS }}-node-
 
       - run: npm install
-      - run: ember build --environment=production
+      
+      - name: Build
+        run: npm run build -- --environment=production
 
       - uses: w9jds/firebase-action@master
         with:
