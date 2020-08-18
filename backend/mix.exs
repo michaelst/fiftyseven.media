@@ -43,6 +43,7 @@ defmodule FSM.Mixfile do
       {:ecto_sql, "~> 3.0"},
       {:gettext, "~> 0.11"},
       {:guardian, "~> 2.0"},
+      {:hackney, "~> 1.16"},
       {:jason, "~> 1.0"},
       {:phoenix_ecto, "~> 4.0"},
       {:phoenix_html, "~> 2.0"},
