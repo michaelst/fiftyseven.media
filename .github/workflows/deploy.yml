@@ -2,7 +2,7 @@ name: Deploy
 on:
   push:
     branches:
-      - master
+      - backend
 
 jobs:
   backend:
@@ -18,11 +18,14 @@ jobs:
 
       - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          project_id: cloud-57
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           export_default_credentials: true
 
-      - run: gcloud auth configure-docker us.gcr.io
+      - name: GCP Authentication
+        run: |
+          gcloud auth configure-docker us.gcr.io
+          gcloud container clusters get-credentials default-cluster --zone us-central1-a
 
       - name: Build
         run: |        
@@ -33,15 +36,23 @@ jobs:
             --build-arg SENTRY_DSN=${{ secrets.SENTRY_DSN }} \
             -f deploy/Dockerfile \
             -t us.gcr.io/cloud-57/fiftysevenmedia-api:latest .
-      - name: Publish
-        run: docker push us.gcr.io/cloud-57/fiftysevenmedia-api:latest
+          docker push us.gcr.io/cloud-57/fiftysevenmedia-api:latest
 
-      - name: Start rolling update
+      - name: Setup Helm
         run: |
-          gcloud compute instance-groups managed rolling-action replace fiftysevenmedia-api \
-            --region=us-central1 \
-            --max-unavailable 0 \
-            --max-surge 4
+          helm plugin install https://github.com/hayorov/helm-gcs.git
+          helm repo add cloud-57 gs://cloud-57-helm
+          helm repo update
+
+      - name: Rollout Deploy
+        run: |
+          helm upgrade --install fiftysevenmedia cloud-57/cloud-57 \
+          -f .devops/helm/values.yaml \
+          --version v1.0.1 \
+          --set image.repository=us.gcr.io/cloud-57/fiftysevenmedia-api \
+          --set image.tag=${GITHUB_SHA} \
+          -n backend
+          kubectl rollout status --watch deployment fiftysevenmedia -n backend
 
   frontend:
     name: Frontend
