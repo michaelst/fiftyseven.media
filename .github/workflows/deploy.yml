@@ -34,7 +34,7 @@ jobs:
             --build-arg GUARDIAN_SECRET=${{ secrets.GUARDIAN_SECRET }} \
             --build-arg SECRET_KEY_BASE=${{ secrets.SECRET_KEY_BASE }} \
             --build-arg SENTRY_DSN=${{ secrets.SENTRY_DSN }} \
-            -f deploy/Dockerfile \
+            -f .devops/Dockerfile \
             -t us.gcr.io/cloud-57/fiftysevenmedia-api:latest .
           docker push us.gcr.io/cloud-57/fiftysevenmedia-api:latest
 
