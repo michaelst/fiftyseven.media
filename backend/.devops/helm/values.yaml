@@ -26,7 +26,7 @@ service:
     periodSeconds: 1
 
 ingressroute:
-  domain: spendable.money
+  domain: api.fiftyseven.media
   path: "/"
 
 # autoscaling:
