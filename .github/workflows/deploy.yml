@@ -35,8 +35,8 @@ jobs:
             --build-arg SECRET_KEY_BASE=${{ secrets.SECRET_KEY_BASE }} \
             --build-arg SENTRY_DSN=${{ secrets.SENTRY_DSN }} \
             -f .devops/Dockerfile \
-            -t us.gcr.io/cloud-57/fiftysevenmedia-api:latest .
-          docker push us.gcr.io/cloud-57/fiftysevenmedia-api:latest
+            -t us.gcr.io/cloud-57/fiftysevenmedia-api:${GITHUB_SHA} .
+          docker push us.gcr.io/cloud-57/fiftysevenmedia-api:${GITHUB_SHA}
 
       - name: Setup Helm
         run: |
