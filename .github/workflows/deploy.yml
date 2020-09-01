@@ -2,7 +2,7 @@ name: Deploy
 on:
   push:
     branches:
-      - master
+      - none
 
 jobs:
   backend:
@@ -14,7 +14,7 @@ jobs:
         working-directory: backend
 
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@main
 
       - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
@@ -29,14 +29,20 @@ jobs:
 
       - name: Build
         run: |        
+          docker pull us.gcr.io/cloud-57/fiftysevenmedia-api:build || true
+          docker pull us.gcr.io/cloud-57/fiftysevenmedia-api:latest || true
           docker build \
-            --build-arg DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
-            --build-arg GUARDIAN_SECRET=${{ secrets.GUARDIAN_SECRET }} \
-            --build-arg SECRET_KEY_BASE=${{ secrets.SECRET_KEY_BASE }} \
-            --build-arg SENTRY_DSN=${{ secrets.SENTRY_DSN }} \
-            -f .devops/Dockerfile \
-            -t us.gcr.io/cloud-57/fiftysevenmedia-api:${GITHUB_SHA} .
-          docker push us.gcr.io/cloud-57/fiftysevenmedia-api:${GITHUB_SHA}
+            --target build \
+            --cache-from us.gcr.io/cloud-57/fiftysevenmedia-api:build \
+            -t us.gcr.io/cloud-57/fiftysevenmedia-api:build \
+            -f .devops/Dockerfile .
+          docker build \
+            --cache-from us.gcr.io/cloud-57/fiftysevenmedia-api:build \
+            --cache-from us.gcr.io/cloud-57/fiftysevenmedia-api:latest \
+            -t us.gcr.io/cloud-57/fiftysevenmedia-api:${GITHUB_SHA} \
+            -t us.gcr.io/cloud-57/fiftysevenmedia-api:latest \
+            -f .devops/Dockerfile .
+          docker push us.gcr.io/cloud-57/fiftysevenmedia-api
 
       - name: Setup Helm
         run: |
@@ -48,7 +54,7 @@ jobs:
         run: |
           helm upgrade --install fiftysevenmedia cloud-57/cloud-57 \
           -f .devops/helm/values.yaml \
-          --version v1.0.1 \
+          --version v1.0.2 \
           --set image.repository=us.gcr.io/cloud-57/fiftysevenmedia-api \
           --set image.tag=${GITHUB_SHA} \
           -n backend
